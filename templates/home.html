@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    {% for pet in pets %}
+    <img src="{{pet.photo_url}}">
+    <h3>{{pet.name}}</h3>
+        {% if pet.available %}
+        <b>Available</b>
+        {% else %}
+        <b>Unavailable</b>
+        {% endif %}
+</div>
+<div class="container">
+    <a class="btn btn-primary" href="/add">Add Pet</a>
+</div>
+
+
+{% endblock %}

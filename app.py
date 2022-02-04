@@ -4,6 +4,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from models import db, connect_db, Pet
 
+from forms import PetForm
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "secret"
@@ -27,3 +29,12 @@ def show_homepage():
     """Display homepage"""
     pets = Pet.query.all()
     return render_template("home.html", pets=pets)
+
+@app.route('/add', methods=["GET", "POST"])
+def add_pet():
+
+    pet_form = PetForm()
+
+    #return redirect()
+
+    return render_template("add_pet.html", form=pet_form)
