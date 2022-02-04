@@ -12,10 +12,10 @@ class PetForm(FlaskForm):
 
     species = StringField("Species")
 
-    photo_url = StringField("Photo", validators=[Optional()])
+    photo_url = StringField("Photo")
 
     age = StringField("Age")
 
-    notes = StringField("Notes", validators=[Optional()])
+    notes = StringField("Notes")
 
 

@@ -1,5 +1,6 @@
 """Models for adopt app."""
 
+from email.policy import default
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
