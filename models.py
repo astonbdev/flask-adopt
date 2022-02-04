@@ -3,6 +3,7 @@
 from email.policy import default
 from flask_sqlalchemy import SQLAlchemy
 
+
 db = SQLAlchemy()
 
 
@@ -19,13 +20,9 @@ def connect_db(app):
 class Pet(db.Model):
     """Pet"""
 
-    __tablename__ = 'pets'
+    __tablename__ = "pets"
 
-    id = db.Column(
-        db.Integer,
-        primary_key=True,
-        autoincrement=True
-    )
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     name = db.Column(db.Text)
 
@@ -38,3 +35,6 @@ class Pet(db.Model):
     notes = db.Column(db.Text, nullable=True)
 
     available = db.Column(db.Boolean, default=True)
+
+
+
