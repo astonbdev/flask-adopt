@@ -1,21 +1,21 @@
 """Forms for adopt app."""
 
 
-from smtplib import SMTPRecipientsRefused
 from flask_wtf import FlaskForm
-from wtforms import StringField, Optional
+from wtforms import StringField
+from wtforms.validators import Optional
 
 
 class PetForm(FlaskForm):
 
-    name = StringField("""validators""")
+    name = StringField("Name")
 
-    species = StringField()
+    species = StringField("Species")
 
-    photo_url = StringField(validators=[Optional()])
+    photo_url = StringField("Photo", validators=[Optional()])
 
-    age = StringField()
+    age = StringField("Age")
 
-    notes = StringField(validators=[Optional()])
+    notes = StringField("Notes", validators=[Optional()])
 
 
