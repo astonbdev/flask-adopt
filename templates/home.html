@@ -4,21 +4,28 @@
 
 {% block content %}
 
-<div class="container">
-    {% for pet in pets %}
-    <img src="{{pet.photo_url}}">
-    <h3>{{pet.name}}</h3>
-        {% if pet.available %}
-        <b>Available</b>
-        {% else %}
-        <b>Unavailable</b>
-        {% endif %}
+{% for msg in get_flashed_messages() %}
+    <p>{{msg}}</p>
+    <br>
+    {% endfor %}
+    <br>
+
+    <div class="container pet-container">
+        {% for pet in pets %}
+        <img src="{{pet.photo_url}}">
+        <h3><a href="/{{pet.id}}">{{pet.name}}</a></h3>
+
+        <h4>{% if pet.available %}
+            <b>Available</b>
+            {% else %}
+            <b>Unavailable</b>
+            {% endif %}
+        </h4>
 
         {% endfor %}
-</div>
-<div class="container">
-    <a class="btn btn-primary" href="/add">Add Pet</a>
-</div>
-
-
+    </div>
+    <br>
+    <div class="container">
+        <a class="btn btn-primary" href="/add">Add Pet</a>
+    </div>
 {% endblock %}
