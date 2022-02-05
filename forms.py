@@ -2,7 +2,7 @@
 
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, ValidationError
+from wtforms import StringField, BooleanField, ValidationError
 from wtforms.validators import Optional, InputRequired, URL
 
 def validate_species(form, field):
@@ -19,7 +19,8 @@ def validate_age(form, field):
     if field.data.lower() not in age_list:
         raise ValidationError("Age not valid")
 
-class PetForm(FlaskForm):
+class AddPetForm(FlaskForm):
+    """Form class for adding a pet"""
 
     name = StringField("Name", validators=[InputRequired()])
 
@@ -27,9 +28,19 @@ class PetForm(FlaskForm):
 
     photo_url = StringField("Photo", validators=[Optional(), URL()])
 
-    age = StringField("Age", validators=[InputRequired(),validate_age])
+    age = StringField("Age", validators=[InputRequired(), validate_age])
 
     notes = StringField("Notes", validators=[Optional()])
+
+class EditPetForm(FlaskForm):
+    """Form class for editing a pet"""
+
+    photo_url = StringField("Photo", validators=[Optional(), URL()])
+
+    notes = StringField("Notes", validators=[Optional()])
+
+    available = BooleanField("Availability", validators=[Optional()])
+
 
 
 

@@ -1,6 +1,5 @@
 """Models for adopt app."""
 
-from email.policy import default
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -18,7 +17,7 @@ def connect_db(app):
 
 
 class Pet(db.Model):
-    """Pet"""
+    """Pet model fort db"""
 
     __tablename__ = "pets"
 
@@ -35,6 +34,3 @@ class Pet(db.Model):
     notes = db.Column(db.Text, nullable=True)
 
     available = db.Column(db.Boolean, default=True)
-
-
-
