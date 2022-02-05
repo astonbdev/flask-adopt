@@ -20,7 +20,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///adopt"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
-PET_API_SECRET_KEY = os.environ['PET_API_KEY']
+PET_API_KEY = os.environ['PET_API_KEY']
 PET_API_SECRET = os.environ['PET_API_SECRET']
 ACCESS_TOKEN = ""
 
@@ -94,11 +94,15 @@ def show_pet_info_form(pet_id):
 
 
 def update_auth_token_string():
-    
-    resp = requests.get(
-        f"https://api.petfinder.com/v2/oauth2/token?grant_type=client_credentials&client_id={PET_API_SECRET_KEY}&client_secret={PET_API_SECRET}"
-    )
-    
-    global ACCESS_TOKEN
-    ACCESS_TOKEN = resp.json()["access_token"] 
 
+    resp = requests.get(
+        "https://api.petfinder.com/v2/oauth2/token",
+        data={
+            "grant_type": "client_credentials",
+            "client_id": PET_API_KEY,
+            "client_secret": PET_API_SECRET
+        }
+    )
+
+    global ACCESS_TOKEN
+    ACCESS_TOKEN = resp.json()
