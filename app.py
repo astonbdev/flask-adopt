@@ -1,4 +1,10 @@
+from urllib import response
+
+import os
+
 from flask import Flask, render_template, flash, redirect
+
+import requests
 
 from flask_debugtoolbar import DebugToolbarExtension
 
@@ -14,6 +20,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///adopt"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
+PET_API_SECRET_KEY = os.environ['PET_API_KEY']
+PET_API_SECRET = os.environ['PET_API_SECRET']
+ACCESS_TOKEN = ""
+
 connect_db(app)
 db.create_all()
 
@@ -24,10 +34,16 @@ db.create_all()
 
 toolbar = DebugToolbarExtension(app)
 
+@app.before_first_request
+def refresh_credentials():
+    """Gets OAuth token from PetFinder API"""
+    update_auth_token_string()
+
+
 @app.get('/')
 def show_homepage():
     """Display homepage"""
-
+    breakpoint()
     pets = Pet.query.all()
     return render_template("home.html", pets=pets)
 
@@ -75,3 +91,14 @@ def show_pet_info_form(pet_id):
 
     else:
        return render_template("pet_info.html", pet=pet, form=pet_form)
+
+
+def update_auth_token_string():
+    
+    resp = requests.get(
+        f"https://api.petfinder.com/v2/oauth2/token?grant_type=client_credentials&client_id={PET_API_SECRET_KEY}&client_secret={PET_API_SECRET}"
+    )
+    
+    global ACCESS_TOKEN
+    ACCESS_TOKEN = resp.json()["access_token"] 
+
